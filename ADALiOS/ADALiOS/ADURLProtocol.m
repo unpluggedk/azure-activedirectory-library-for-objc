@@ -117,16 +117,16 @@ willSendRequestForAuthenticationChallenge:(NSURLAuthenticationChallenge *)challe
         [self.client URLProtocol:self didFailWithError:[NSError errorWithDomain:NSCocoaErrorDomain code:NSUserCancelledError userInfo:nil]];
         if(![request.allHTTPHeaderFields valueForKey:@"x-ms-PkeyAuth"])
         {
-            [mutableRequest addValue:@"1.0" forHTTPHeaderField:@"x-ms-PkeyAuth"];
+//            [mutableRequest addValue:@"1.0" forHTTPHeaderField:@"x-ms-PkeyAuth"];
         }
         return mutableRequest;
     }
     
     if(![request.allHTTPHeaderFields valueForKey:@"x-ms-PkeyAuth"])
     {
-        [mutableRequest addValue:@"1.0" forHTTPHeaderField:@"x-ms-PkeyAuth"];
-        request = [mutableRequest copy];
-        mutableRequest = nil;
+//        [mutableRequest addValue:@"1.0" forHTTPHeaderField:@"x-ms-PkeyAuth"];
+//        request = [mutableRequest copy];
+//        mutableRequest = nil;
     }
     return request;
 }

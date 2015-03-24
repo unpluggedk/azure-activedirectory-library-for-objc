@@ -24,6 +24,7 @@
 #import "ADWebRequest.h"
 #import "ADWebResponse.h"
 #import "ADAuthenticationSettings.h"
+#import "ADNTLMHandler.h"
 
 NSString *const HTTPGet  = @"GET";
 NSString *const HTTPPost = @"POST";
@@ -197,8 +198,12 @@ static NSOperationQueue *s_queue;
 - (void)connection:(NSURLConnection *)connection willSendRequestForAuthenticationChallenge:(NSURLAuthenticationChallenge *)challenge
 {
 #pragma unused(connection)
-    // Do default handling
-    [challenge.sender performDefaultHandlingForAuthenticationChallenge:challenge];
+    if(![ADNTLMHandler handleNTLMChallenge:challenge
+                                urlRequest:nil
+                            customProtocol:nil])
+    {
+        [challenge.sender performDefaultHandlingForAuthenticationChallenge:challenge];
+    }
 }
 
 // Connection Completion

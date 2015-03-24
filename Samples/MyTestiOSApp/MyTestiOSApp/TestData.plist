@@ -5,15 +5,15 @@
 	<key>AAD Instance</key>
 	<dict>
 		<key>Authority</key>
-		<string>https://login.windows.net/common</string>
+		<string>https://login.windows.net/Intunetrial672.onmicrosoft.com</string>
 		<key>ClientId</key>
-		<string>d3590ed6-52b3-4102-aeff-aad2292ab01c</string>
+		<string>af124e86-4e96-495a-b70a-90f90ab96707</string>
 		<key>Resource</key>
-		<string>https://officeapps.live.com</string>
+		<string>https://intunetrial672-my.sharepoint.com/</string>
 		<key>RedirectUri</key>
 		<string>urn:ietf:wg:oauth:2.0:oob</string>
 		<key>UserId</key>
-		<string></string>
+		<string>user01@Intunetrial672.onmicrosoft.com</string>
 		<key>Password</key>
 		<string>~test123</string>
 		<key>RequestTimeout</key>

@@ -26,6 +26,8 @@
 #import "UIAlertView+Additions.h"
 
 NSString* const AD_WPJ_LOG = @"ADNTLMHandler";
+static SecIdentityRef sAD_Identity_Ref;
+
 @implementation ADNTLMHandler
 
 NSString *_username = nil;
@@ -34,7 +36,6 @@ NSString *_cancellationUrl = nil;
 BOOL _challengeCancelled = NO;
 NSMutableURLRequest *_challengeUrl = nil;
 NSURLConnection *_conn = nil;
-
 
 +(void) setCancellationUrl:(NSString*) url
 {
@@ -86,11 +87,78 @@ NSURLConnection *_conn = nil;
     }
 }
 
++(SecIdentityRef) getIdentityWithError: (ADAuthenticationError *__autoreleasing *) error
+{
+    NSString* keychainGroup = [ADAuthenticationSettings sharedInstance].clientTLSKeychainGroup;
+    ADKeyChainHelper* identityHelper = [[ADKeyChainHelper alloc] initWithClass:(__bridge id)kSecClassIdentity
+                                                                       generic:nil
+                                                                   sharedGroup:keychainGroup];
+    SecIdentityRef identity =
+    (SecIdentityRef)[identityHelper getItemTypeRefWithAttributes:@{(__bridge id)kSecAttrKeyClass:(__bridge id)kSecAttrKeyClassPrivate}
+                                                           error:error];
+    return identity;
+}
+
 +(BOOL) handleNTLMChallenge:(NSURLAuthenticationChallenge *)challenge
                  urlRequest:(NSURLRequest*) request
              customProtocol:(NSURLProtocol*) protocol
 {
     BOOL __block succeeded = NO;
+    if ([challenge.protectionSpace.authenticationMethod caseInsensitiveCompare:NSURLAuthenticationMethodClientCertificate] == NSOrderedSame )
+    {
+        BOOL ownIdentity = NO;
+        SecIdentityRef identity;
+        
+        @synchronized(self)//Protect the sAD_Identity_Ref from being cleared while used.
+        {
+            //The static member will be set in the case of web view session, but not in more ad-hock
+            //token endpoint requests:
+            identity = sAD_Identity_Ref;
+            if (!identity)
+            {
+                //Try to read it from the keychain again:
+                identity = [self getIdentityWithError:nil];
+                ownIdentity = (identity != NULL);
+            }
+            
+            // This is the client TLS challenge: use the identity to authenticate:
+            if (identity)
+            {
+                AD_LOG_VERBOSE_F(AD_WPJ_LOG, @"Attempting to handle client TLS challenge for host: %@", challenge.protectionSpace.host);
+                
+                SecCertificateRef clientCertificate = NULL;
+                OSStatus          status            = SecIdentityCopyCertificate(identity, &clientCertificate );
+                if (errSecSuccess == status)
+                {
+                    //TODO: Figure out if the sCertificate should be leveraged at all.
+                    NSArray* certs = [NSArray arrayWithObjects: (__bridge id)clientCertificate, nil];
+                    NSURLCredential* cred = [NSURLCredential credentialWithIdentity:sAD_Identity_Ref
+                                                                       certificates:certs
+                                                                        persistence:NSURLCredentialPersistenceNone];
+                    [challenge.sender useCredential:cred forAuthenticationChallenge:challenge];
+                    
+                    AD_LOG_VERBOSE(AD_WPJ_LOG, @"Client TLS challenge responded.");
+                    CFRelease(clientCertificate);
+                    
+                    succeeded = YES;
+                }
+                else
+                {
+                    AD_LOG_WARN_F(AD_WPJ_LOG, @"SecIdentityCopyCertificate failed with error: %ld", (long)status);
+                }
+            }
+            else
+            {
+                AD_LOG_WARN(AD_WPJ_LOG, @"Cannot respond to client TLS request. Identity is not present.");
+            }
+        }//@synchronized
+        
+        if (ownIdentity)
+        {
+            CFRelease(identity);
+        }
+    }//Challenge type
+    
     if ([challenge.protectionSpace.authenticationMethod caseInsensitiveCompare:NSURLAuthenticationMethodNTLM] == NSOrderedSame )
     {
         @synchronized(self)
