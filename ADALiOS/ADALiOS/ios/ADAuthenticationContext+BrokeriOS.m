@@ -19,7 +19,7 @@
 #import "ADAuthenticationContext+Internal.h"
 #import "ADAuthenticationSettings.h"
 #import "ADBrokerKeyHelper.h"
-#import "ADBrokerNotificationManager.h"
+#import "ADBrokeriOSNotificationManager.h"
 #import "NSDictionary+ADExtensions.h"
 #import "NSString+ADHelperMethods.h"
 #import "ADPkeyAuthHelper.h"
@@ -60,8 +60,8 @@
 
 + (void)internalHandleBrokerResponse:(NSURL *)response
 {
-    THROW_ON_NIL_ARGUMENT([ADBrokerNotificationManager sharedInstance].callbackForBroker);
-    ADAuthenticationCallback completionBlock = [ADBrokerNotificationManager sharedInstance].callbackForBroker;
+    THROW_ON_NIL_ARGUMENT([ADBrokeriOSNotificationManager sharedInstance].callbackForBroker);
+    ADAuthenticationCallback completionBlock = [ADBrokeriOSNotificationManager sharedInstance].callbackForBroker;
     HANDLE_ARGUMENT(response);
     
     NSString *qp = [response query];
@@ -141,7 +141,7 @@
     }
     
     completionBlock(result);
-    [ADBrokerNotificationManager sharedInstance].callbackForBroker = nil;
+    [ADBrokeriOSNotificationManager sharedInstance].callbackForBroker = nil;
 }
 
 - (void)callBrokerForAuthority:(NSString*)authority
@@ -186,7 +186,7 @@
     
     NSURL* appUrl = [[NSURL alloc] initWithString:[NSString stringWithFormat:@"%@://broker?%@", brokerScheme, query]];
     
-    [[ADBrokerNotificationManager sharedInstance] enableOnActiveNotification:completionBlock];
+    [[ADBrokeriOSNotificationManager sharedInstance] enableOnActiveNotification:completionBlock];
     
     dispatch_async(dispatch_get_main_queue(), ^{
         [[UIApplication sharedApplication] openURL:appUrl];
@@ -241,7 +241,7 @@
     NSString* query = [queryDictionary adURLFormEncode];
     
     NSURL* appUrl = [[NSURL alloc] initWithString:[NSString stringWithFormat:@"%@&%@", urlString, query]];
-    [[ADBrokerNotificationManager sharedInstance] enableOnActiveNotification:completionBlock];
+    [[ADBrokeriOSNotificationManager sharedInstance] enableOnActiveNotification:completionBlock];
     
     if([[UIApplication sharedApplication] canOpenURL:appUrl])
     {

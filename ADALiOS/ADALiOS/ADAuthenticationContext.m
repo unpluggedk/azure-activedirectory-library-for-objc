@@ -39,7 +39,6 @@
 #import "ADClientMetrics.h"
 #import "NSString+ADHelperMethods.h"
 #import "ADHelpers.h"
-#import "ADBrokerNotificationManager.h"
 #import "ADOAuth2Constants.h"
 
 #import "ADAuthenticationContext+Internal.h"
