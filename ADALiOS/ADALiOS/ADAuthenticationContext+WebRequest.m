@@ -373,7 +373,9 @@ static volatile int sDialogInProgress = 0;
     [[ADAuthenticationBroker sharedInstance] start:[NSURL URLWithString:startUrl]
                                                end:[NSURL URLWithString:[redirectUri absoluteString]]
                             refreshTokenCredential:refreshTokenCredential
+#if TARGET_OS_IPHONE
                                   parentController:self.parentController
+#endif // TARGET_OS_IPHONE
                                            webView:self.webView
                                         fullScreen:settings.enableFullScreen
                                      correlationId:correlationId

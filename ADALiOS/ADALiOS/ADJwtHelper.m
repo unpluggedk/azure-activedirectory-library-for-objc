@@ -41,6 +41,7 @@
 +(NSString*) decryptJWT:(NSData*) jwtData
           decrpytionKey:(SecKeyRef) decrpytionKey
 {
+#if TARGET_OS_IPHONE
     size_t cipherBufferSize = SecKeyGetBlockSize(decrpytionKey);
     size_t keyBufferSize = [jwtData length];
     
@@ -58,6 +59,9 @@
     
     [bits setLength:keyBufferSize];
     return [[NSString alloc] initWithData:bits encoding:0];
+#else
+    return nil;
+#endif
 }
 
 
@@ -70,6 +74,7 @@
 +(NSData *) sign: (SecKeyRef) privateKey
             data:(NSData *) plainData
 {
+#if TARGET_OS_IPHONE
     NSData* signedHash = nil;
     size_t signedHashBytesSize = SecKeyGetBlockSize(privateKey);
     uint8_t* signedHashBytes = malloc(signedHashBytesSize);
@@ -114,6 +119,9 @@
         free(signedHashBytes);
     }
     return signedHash;
+#else
+    return nil;
+#endif
 }
 
 

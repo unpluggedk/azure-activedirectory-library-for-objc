@@ -153,6 +153,12 @@
 		D6759E201B14FC8600F7CEEE /* ADJwtHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 9727D4D21A8753C300774236 /* ADJwtHelper.m */; };
 		D6759E281B1508C500F7CEEE /* ADAuthenticationContext+BrokeriOS.m in Sources */ = {isa = PBXBuildFile; fileRef = D6759E271B1508C500F7CEEE /* ADAuthenticationContext+BrokeriOS.m */; };
 		D6759E2B1B15156900F7CEEE /* ADBrokeriOSNotificationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = D6759E2A1B15156900F7CEEE /* ADBrokeriOSNotificationManager.m */; };
+		D6759E391B1634BB00F7CEEE /* ADWebRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B343440183304FE002DE1DC /* ADWebRequest.m */; };
+		D6759E3A1B16430400F7CEEE /* ADWorkPlaceJoinUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 9722232D19A2C9F900092E85 /* ADWorkPlaceJoinUtil.m */; };
+		D6759E3B1B16431600F7CEEE /* ADWorkPlaceJoin.m in Sources */ = {isa = PBXBuildFile; fileRef = 9722232A19A2C9F900092E85 /* ADWorkPlaceJoin.m */; };
+		D6759E3C1B16431B00F7CEEE /* ADRegistrationInformation.m in Sources */ = {isa = PBXBuildFile; fileRef = 9722232819A2C9F900092E85 /* ADRegistrationInformation.m */; };
+		D6759E3D1B1643F800F7CEEE /* ADWebResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B343442183304FE002DE1DC /* ADWebResponse.m */; };
+		D6759E3E1B16441C00F7CEEE /* ADAuthenticationBroker.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B34344918330591002DE1DC /* ADAuthenticationBroker.m */; };
 		D6E43A5E1B02D955000F5BE2 /* ADBrokerKeyHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 97D685AF1A107F0000EE816C /* ADBrokerKeyHelper.m */; };
 		D6E43A671B04015A000F5BE2 /* ADAuthenticationContext+AcquireToken.m in Sources */ = {isa = PBXBuildFile; fileRef = D6E43A661B04015A000F5BE2 /* ADAuthenticationContext+AcquireToken.m */; };
 		D6E43A6A1B04026D000F5BE2 /* ADAuthenticationContext+Internal.m in Sources */ = {isa = PBXBuildFile; fileRef = D6E43A691B04026D000F5BE2 /* ADAuthenticationContext+Internal.m */; };
@@ -1122,12 +1128,15 @@
 				D6759E071B14FC8600F7CEEE /* ADAuthenticationContext.m in Sources */,
 				D6759E191B14FC8600F7CEEE /* ADTokenCacheStoreKey.m in Sources */,
 				D6759E0E1B14FC8600F7CEEE /* ADAuthenticationError.m in Sources */,
+				D6759E3A1B16430400F7CEEE /* ADWorkPlaceJoinUtil.m in Sources */,
+				D6759E3C1B16431B00F7CEEE /* ADRegistrationInformation.m in Sources */,
 				D6759E151B14FC8600F7CEEE /* ADInstanceDiscovery.m in Sources */,
 				D6759E0A1B14FC8600F7CEEE /* ADAuthenticationContext+AcquireAssertion.m in Sources */,
 				D6759E1E1B14FC8600F7CEEE /* ADClientMetrics.m in Sources */,
 				D6759E0F1B14FC8600F7CEEE /* ADAuthenticationOperation.m in Sources */,
 				D6759E131B14FC8600F7CEEE /* ADAuthenticationResult.m in Sources */,
 				D6759E1B1B14FC8600F7CEEE /* ADUserInformation.m in Sources */,
+				D6759E3D1B1643F800F7CEEE /* ADWebResponse.m in Sources */,
 				D6759E1D1B14FC8600F7CEEE /* ADBrokerKeyHelper.m in Sources */,
 				D6759E171B14FC8600F7CEEE /* ADOAuth2Constants.m in Sources */,
 				D6759E121B14FC8600F7CEEE /* ADAuthenticationResult+Internal.m in Sources */,
@@ -1137,12 +1146,15 @@
 				D6759E061B14FC8600F7CEEE /* ADPkeyAuthHelper.m in Sources */,
 				D6759E111B14FC8600F7CEEE /* ADAuthenticationParameters.m in Sources */,
 				D6759E181B14FC8600F7CEEE /* ADTokenCacheStoreItem.m in Sources */,
+				D6759E391B1634BB00F7CEEE /* ADWebRequest.m in Sources */,
 				D6759E141B14FC8600F7CEEE /* ADAuthenticationSettings.m in Sources */,
+				D6759E3B1B16431600F7CEEE /* ADWorkPlaceJoin.m in Sources */,
 				D6759E0C1B14FC8600F7CEEE /* ADAuthenticationContext+WebRequest.m in Sources */,
 				D6759E201B14FC8600F7CEEE /* ADJwtHelper.m in Sources */,
 				D6759E0B1B14FC8600F7CEEE /* ADAuthenticationContext+TokenCaching.m in Sources */,
 				D6759E1A1B14FC8600F7CEEE /* ADKeychainTokenCacheStore.m in Sources */,
 				D6759E161B14FC8600F7CEEE /* ADLogger.m in Sources */,
+				D6759E3E1B16441C00F7CEEE /* ADAuthenticationBroker.m in Sources */,
 				D6759E1F1B14FC8600F7CEEE /* ADHelpers.m in Sources */,
 				D6759E081B14FC8600F7CEEE /* ADAuthenticationContext+Internal.m in Sources */,
 			);
