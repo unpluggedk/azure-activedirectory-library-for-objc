@@ -14,6 +14,7 @@ Pod::Spec.new do |s|
   s.authors      = { "Brandon Werner" => "brandwe@microsoft.com" }
   s.social_media_url   = "https://twitter.com/azuread"
   s.platform     = :ios, "7.0"
+  s.platform     = :watchos, "2.0"
   s.source       = { 
     :git => "https://github.com/AzureAD/azure-activedirectory-library-for-objc.git", 
     :tag => s.version.to_s
